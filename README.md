@@ -1,3 +1,7 @@
+---
+permalink: /index.html
+---
+
 ## Attribtutions
 
 - [Virus image from ICONPACKS](https://www.iconpacks.net/free-icon/corona-virus-3137.html)
