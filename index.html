@@ -211,7 +211,7 @@
 
       this._ctx.fillStyle = '#70C5CF';
       this._ctx.fillRect(0, 0, this._width, this._height);
-      this._ctx.drawImage(this._bgImg, 0, 0);
+      this._ctx.drawImage(this._bgImg, 0, this._height - this._bgImg.height);
 
       this._clouds.forEach(x => x.draw(that._ctx))
       this._enemies.forEach(x => x.draw(that._ctx))

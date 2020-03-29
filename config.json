@@ -5,7 +5,7 @@
   "bgImage": "media/green_hills.png",
 
   "heroX": 200,
-  "heroY": 200,
+  "heroY": 250,
   "heroImage": "media/super_gur.png",
   "heroLooks": {
     "walking": {
@@ -28,7 +28,7 @@
   },
 
   "projectileX": 250,
-  "projectileY": 250,
+  "projectileY": 300,
   "projectileSpeed": 300,
   "projectileImage": "media/alcogel.png",
   "projectileLooks": {
@@ -41,7 +41,7 @@
     }
   },
 
-  "enemyY": 200,
+  "enemyY": 250,
   "enemyRate": 0.2,
   "enemySpeedLow": 20,
   "enemySpeedHigh": 200,
@@ -67,7 +67,7 @@
   "nClouds": 5,
   "cloudSpeedLow": 20,
   "cloudSpeedHigh": 150,
-  "cloudBaseHeight": 500,
+  "cloudBaseHeight": 600,
   "cloudImage": "media/cloud.png",
   "cloudLook": {
     "static": {
