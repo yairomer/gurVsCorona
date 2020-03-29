@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="user-scalable=0">
+  <title></title>
+
+  <style>
+  #mainCanvas {
+    display: block;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  </style>
+</head>
+<body>
+<canvas id="mainCanvas" width="100%" height="100%"></canvas>
+<script>
+  class Sprite {
+    constructor(img, looks, defaultState, x, y, speedX, speedY) {
+      this._img = img;
+      this._looks = looks;
+      this._defaultState = defaultState;
+      this._x = x;
+      this._y = y;
+      this._width = 0;
+      this._height = 0;
+      this._speedX = speedX;
+      this._speedY = speedY;
+      this._remove = false;
+
+      this._state = this._defaultState;
+      this._stateStart = new Date();
+    }
+
+    get x() { return this._x }
+    get y() { return this._y }
+    get width() { return this._width }
+    get height() { return this._height }
+    get state() { return this._state }
+    get remove() { return this._remove }
+
+    setState(state) {
+      this._state = state;
+      this._stateStart = new Date();
+    }
+
+    setXY(x, y) {
+      this._x = x;
+      this._y = y;
+    }
+
+    setSpeed(speedX, speedY) {
+      this._speedX = speedX;
+      this._speedY = speedY;
+    }
+
+    setRemove() {
+      this._remove = true;
+    }
+
+    step(fps) {
+      var now = new Date()
+      this._x += this._speedX / fps
+      this._y += this._speedY / fps
+      if ((this._looks[this._state]['timeout'] > 0) &
+          (now - this._stateStart >= this._looks[this._state]['timeout'] * 1000)) {
+        this.setState(this._defaultState);
+      }
+
+    }
+
+    draw(ctx) {
+      var now = new Date()
+      var lookIndex = Math.floor((now - this._stateStart) / this._looks[this._state]['updateTime'] / 1000);
+      var look = this._looks[this._state]['looks'][lookIndex % this._looks[this._state]['looks'].length];
+      ctx.drawImage(this._img,
+                    look['crop'][0],
+                    look['crop'][1],
+                    look['crop'][2],
+                    look['crop'][3],
+                    this._x - look['width'] / 2,
+                    this._y - look['height'] / 2,
+                    look['width'],
+                    look['height']);
+      this._width = look['width'];
+      this._height = look['height'];
+    }
+
+    isIn(x, y, width, height) {
+      return (this._x + this._width / 2 >= x) &
+             (this._y + this._height / 2 >= y) &
+             (this._x - this._width / 2 <= x + width) &
+             (this._y - this._height / 2 <= y + height)
+    }
+
+    isTouching(other) {
+      return (this._x + this._width / 2 >= other.x - other.width / 2) &
+             (this._y + this._height / 2 >= other.y - other.height / 2) &
+             (this._x - this._width / 2 <= other.x + other.width / 2) &
+             (this._y - this._height / 2 <= other.y + other.height / 2)
+    }
+
+  }
+
+  class Game {
+    constructor(canvas, config) {
+      this._ctx = canvas.getContext("2d");
+      this._config = config;
+
+      this._width = canvas.width;
+      this._height = canvas.height;
+
+      var nImages = 5;
+      var that = this;
+      function waitForImages() {
+        nImages--;
+        if (nImages == 0) {
+          that.constractor2(canvas)
+        }
+      }
+
+      this._bgImg = new Image();
+      this._bgImg.onload = waitForImages();
+      this._bgImg.src = this._config["bgImage"];
+
+      this._heroImg = new Image();
+      this._heroImg.onload = waitForImages();
+      this._heroImg.src = this._config["heroImage"];
+
+      this._projectileImg = new Image();
+      this._projectileImg.onload = waitForImages();
+      this._projectileImg.src = this._config["projectileImage"]
+
+      this._enemyImg = new Image();
+      this._enemyImg.onload = waitForImages();
+      this._enemyImg.src = this._config["enemyImage"];
+
+      this._cloudImg = new Image();
+      this._cloudImg.onload = waitForImages();
+      this._cloudImg.src = this._config["cloudImage"];
+
+      this._shootingAudio = new Audio(this._config["shootingAudio"]);
+    }
+    
+    constractor2(canvas) {
+
+      this._hero = new Sprite(this._heroImg, this._config['heroLooks'], 'walking', this._config['heroX'], this._height - this._config['heroY'], 0, 0);
+      this._projectiles = [];
+      this._enemies = [];
+      this._clouds = [];
+      for (var i = 0; i < this._config['nClouds']; i++) {
+        let speed = Math.random() * (this._config['cloudSpeedHigh'] - this._config['cloudSpeedLow']) + this._config['enemySpeedLow'];
+        let y = Math.random() * (this._height - this._config['cloudBaseHeight']) + this._config['cloudBaseHeight'];
+        let x = Math.random() * this._width;
+        this._clouds.push(new Sprite(this._cloudImg, this._config['cloudLook'], 'static', x, this._height - y, -speed, 0));
+      }
+
+      var that = this;
+      document.body.onkeyup = function(e){
+        if(e.keyCode == 32){
+            that.shoot();
+        }}
+      canvas.addEventListener("touchstart", function() {
+        that.shoot();
+        }, false);
+      this.step();
+    }
+
+    step() {
+      var that = this
+
+      this._hero.step(this._config['fps']);
+      this._projectiles.forEach(x => x.step(this._config['fps']))
+      this._enemies.forEach(x => x.step(this._config['fps']))
+      this._clouds.forEach(x => x.step(this._config['fps']))
+
+      if ((this._enemies.length < 2) | (Math.random() < this._config['enemyRate'] / this._config['fps'])) {
+        let speed = Math.random() * (this._config['enemySpeedHigh'] - this._config['enemySpeedLow']) + this._config['enemySpeedLow'];
+        this._enemies.push(new Sprite(this._enemyImg, this._config['enemyLooks'], 'alive', this._width + this._config['enemyLooks']['alive']['looks'][0]['width'] / 2, this._height - this._config['enemyY'], -speed, 0));
+      }
+      for (let projectile of this._projectiles) {
+        for (let enemy of this._enemies) {
+          if ((enemy.state == 'alive') & (projectile.isTouching(enemy))) {
+            enemy.setState('dead');
+            enemy.setSpeed(0, this._config['enemyFallSpeed']);
+            projectile.setRemove()
+          }
+        }
+      }
+      for (let cloud of this._clouds) {
+        if (!cloud.isIn(0, 0, this._width, this._height)) {
+          let speed = Math.random() * (this._config['cloudSpeedHigh'] - this._config['cloudSpeedLow']) + this._config['enemySpeedLow'];
+          let y = Math.random() * (this._height - this._config['cloudBaseHeight']) + this._config['cloudBaseHeight'];
+          cloud.setXY(this._width + this._config['cloudLook']['static']['looks'][0]['width'] / 2, this._height - y);
+          cloud.setSpeed(-speed, 0);
+        }
+      }
+      this._projectiles = this._projectiles.filter(x => !x.remove)
+      this._projectiles = this._projectiles.filter(x => x.isIn(0, 0, that._width, that._height))
+      this._enemies = this._enemies.filter(x => x.isIn(0, 0, that._width + this._config['enemyLooks']['alive']['looks'][0]['width'] / 2, that._height))
+
+      this._ctx.fillStyle = '#70C5CF';
+      this._ctx.fillRect(0, 0, this._width, this._height);
+      this._ctx.drawImage(this._bgImg, 0, 0);
+
+      this._clouds.forEach(x => x.draw(that._ctx))
+      this._enemies.forEach(x => x.draw(that._ctx))
+      this._projectiles.forEach(x => x.draw(that._ctx))
+      this._hero.draw(that._ctx)
+      // this._bgObjects.forEach(x => x.draw())
+
+      setTimeout(function(){window.requestAnimationFrame(that.step.bind(that), canvas)}, 1000 / this._config['fps']);
+    }
+
+    shoot() {
+      this._hero.setState('shooting');
+      this._projectiles.push(new Sprite(this._projectileImg, this._config['projectileLooks'], 'static', this._config['projectileX'], this._height - this._config['projectileY'], this._config['projectileSpeed'], 0));
+      this._shootingAudio.play();
+    }
+  }
+
+  function main() {
+    canvas = document.getElementById("mainCanvas");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    fetch("config.json")
+      .then((response) => {
+        return response.json();
+      })
+      .then((config) => {
+        var game = new Game(canvas, config);
+        document.body.appendChild(canvas);
+      });
+  }
+
+  main();
+
+</script>
+</body>
+</html>
