@@ -79,5 +79,6 @@
     }
   },
 
-  "shootingAudio": "media/swoosh.wav"
+  "shootingAudio": "media/swoosh.wav",
+  "hitAudio": "media/glass_breaking.wav"
 }

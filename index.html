@@ -145,6 +145,7 @@
       this._cloudImg.src = this._config["cloudImage"];
 
       this._shootingAudio = new Audio(this._config["shootingAudio"]);
+      this._hitAudio = new Audio(this._config["hitAudio"]);
     }
     
     constractor2(canvas) {
@@ -192,6 +193,7 @@
             enemy.setState('dead');
             enemy.setSpeed(0, this._config['enemyFallSpeed']);
             projectile.setRemove()
+            this._hitAudio.play();
           }
         }
       }
