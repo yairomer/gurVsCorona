@@ -168,6 +168,9 @@
       canvas.addEventListener("touchstart", function() {
         that.shoot();
         }, false);
+      canvas.addEventListener("click", function() {
+        that.shoot();
+        });
       this.step();
     }
 
