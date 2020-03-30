@@ -43,8 +43,8 @@
 
   "enemyY": 250,
   "enemyRate": 0.2,
-  "enemySpeedLow": 20,
-  "enemySpeedHigh": 200,
+  "enemySpeedLow": 80,
+  "enemySpeedHigh": 300,
   "enemyFallSpeed": 300,
   "enemyImage": "media/virus.png",
   "enemyLooks": {
