@@ -75,10 +75,10 @@
       "updateTime": 1,
       "looks": [
         {"crop": [0, 0, 400, 200], "width": 400, "height": 200}
-      ]
+      ] 
     }
   },
 
-  "shootingAudio": "media/swoosh.wav",
+  "shootingAudio": "media/alcogel.wav",
   "hitAudio": "media/glass_breaking.wav"
 }
