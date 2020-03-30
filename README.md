@@ -9,5 +9,6 @@ permalink: /index.html
 - [Green hills image from PNGGURU](https://www.pngguru.com/free-transparent-background-png-clipart-nvcey)
 - [Cave image from PNGGURU](https://www.pngguru.com/free-transparent-background-png-clipart-brusw)
 - [Fire image from PNGGURU](https://www.pngguru.com/free-transparent-background-png-clipart-lghdn)
+- [Teddy bear image from PNGGURU](https://www.pngguru.com/free-transparent-background-png-clipart-nkfed)
 - [Swoosh sound from soundbible](http://soundbible.com/706-Swoosh-3.html)
 - [Glass braking sound from soundbible](http://soundbible.com/1761-Glass-Breaking.html)

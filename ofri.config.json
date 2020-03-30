@@ -1,0 +1,85 @@
+{
+  "fps": 25,
+  "baseWidth": 1000,
+
+  "bgImage": "media/green_hills.png",
+  "bgColor": "#70C5CF",
+
+  "heroX": 200,
+  "heroY": 200,
+  "heroImage": "media/ofri.png",
+  "heroLooks": {
+    "walking": {
+      "timeout": 0,
+      "updateTime": 0.5,
+      "looks": [
+        {"crop": [0, 0, 200, 400], "width": 200, "height": 400},
+        {"crop": [200, 0, 200, 400], "width": 200, "height": 400},
+        {"crop": [400, 0, 200, 400], "width": 200, "height": 400},
+        {"crop": [200, 0, 200, 400], "width": 200, "height": 400}
+      ]
+    },
+    "shooting": {
+      "timeout": 1,
+      "updateTime": 1,
+      "looks": [
+        {"crop": [600, 0, 200, 400], "width": 200, "height": 400}
+      ]
+    }
+  },
+
+  "projectileX": 250,
+  "projectileY": 300,
+  "projectileSpeed": 300,
+  "projectileImage": "media/teddy_bear.png",
+  "projectileLooks": {
+    "static": {
+      "timeout": 0,
+      "updateTime": 1,
+      "looks": [
+        {"crop": [0, 0, 200, 200], "width": 200, "height": 200}
+      ]
+    }
+  },
+
+  "enemyY": 250,
+  "enemyRate": 0.2,
+  "enemySpeedLow": 80,
+  "enemySpeedHigh": 300,
+  "enemyFallSpeed": 300,
+  "enemyImage": "media/virus.png",
+  "enemyLooks": {
+    "alive": {
+      "timeout": 0,
+      "updateTime": 1,
+      "looks": [
+        {"crop": [0, 0, 200, 200], "width": 200, "height": 200}
+      ]
+    },
+    "dead": {
+      "timeout": 0,
+      "updateTime": 1,
+      "looks": [
+        {"crop": [200, 0, 200, 200], "width": 200, "height": 200}
+      ]
+    }
+  },
+
+  "nClouds": 5,
+  "cloudSpeedLow": 20,
+  "cloudSpeedHigh": 150,
+  "cloudBaseHeight": 600,
+  "cloudImage": "media/cloud.png",
+  "cloudLook": {
+    "static": {
+      "timeout": 0,
+      "updateTime": 1,
+      "looks": [
+        {"crop": [0, 0, 400, 200], "width": 400, "height": 200}
+      ] 
+    }
+  },
+
+  "shootingAudio": "media/bobo.wav",
+  "hitAudio": "media/glass_breaking.wav"
+}
