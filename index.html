@@ -124,6 +124,8 @@
         }
       }
 
+      this._lastShooting = new Date();
+
       this._bgImg = new Image();
       this._bgImg.onload = waitForImages;
       this._bgImg.src = this._config["bgImage"];
@@ -223,9 +225,13 @@
     }
 
     shoot() {
-      this._hero.setState('shooting');
-      this._projectiles.push(new Sprite(this._projectileImg, this._config['projectileLooks'], 'static', this._config['projectileX'], this._height - this._config['projectileY'], this._config['projectileSpeed'], 0));
-      this._shootingAudio.play();
+      var now = new Date()
+      if ((now - this._lastShooting >= this._config['shootingDelay'] * 1000)) {
+        this._hero.setState('shooting');
+        this._projectiles.push(new Sprite(this._projectileImg, this._config['projectileLooks'], 'static', this._config['projectileX'], this._height - this._config['projectileY'], this._config['projectileSpeed'], 0));
+        this._shootingAudio.play();
+        this._lastShooting = new Date();
+      }
     }
   }
 
