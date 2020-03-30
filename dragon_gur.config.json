@@ -30,7 +30,7 @@
 
   "projectileX": 280,
   "projectileY": 310,
-  "projectileSpeed": 300,
+  "projectileSpeed": 500,
   "shootingDelay": 1,
   "projectileImage": "media/fire.png",
   "projectileLooks": {
@@ -82,5 +82,5 @@
   },
 
   "shootingAudio": "media/roar.wav",
-  "hitAudio": "media/glass_breaking.wav"
+  "hitAudio": "media/smashing.wav"
 }
