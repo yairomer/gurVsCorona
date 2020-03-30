@@ -3,6 +3,7 @@
   "baseWidth": 1000,
 
   "bgImage": "media/green_hills.png",
+  "bgColor": "#70C5CF",
 
   "heroX": 200,
   "heroY": 250,

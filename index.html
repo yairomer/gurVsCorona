@@ -209,7 +209,7 @@
       this._projectiles = this._projectiles.filter(x => x.isIn(0, 0, that._width, that._height))
       this._enemies = this._enemies.filter(x => x.isIn(0, 0, that._width + this._config['enemyLooks']['alive']['looks'][0]['width'] / 2, that._height))
 
-      this._ctx.fillStyle = '#70C5CF';
+      this._ctx.fillStyle = this._config["bgColor"];
       this._ctx.fillRect(0, 0, this._width, this._height);
       this._ctx.drawImage(this._bgImg, 0, this._height - this._bgImg.height);
 
