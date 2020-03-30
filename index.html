@@ -233,7 +233,15 @@
     canvas = document.getElementById("mainCanvas");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    fetch("config.json")
+    var configFile = "super_gur.config.json";
+    var vars = {};
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    if (vars["config"]) {
+      configFile = vars["config"] + ".config.json";
+    }
+    fetch(configFile)
       .then((response) => {
         return response.json();
       })
