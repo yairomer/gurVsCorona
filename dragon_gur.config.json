@@ -31,7 +31,7 @@
   "projectileX": 280,
   "projectileY": 310,
   "projectileSpeed": 300,
-  "shootingDelay": 0.5,
+  "shootingDelay": 1,
   "projectileImage": "media/fire.png",
   "projectileLooks": {
     "static": {

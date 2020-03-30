@@ -31,7 +31,7 @@
   "projectileX": 250,
   "projectileY": 300,
   "projectileSpeed": 300,
-  "shootingDelay": 0.5,
+  "shootingDelay": 1,
   "projectileImage": "media/teddy_bear.png",
   "projectileLooks": {
     "static": {
