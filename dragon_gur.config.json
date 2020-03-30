@@ -11,7 +11,7 @@
   "heroLooks": {
     "walking": {
       "timeout": 0,
-      "updateTime": 0.5,
+      "updateTime": 0.4,
       "looks": [
         {"crop": [0, 0, 200, 400], "width": 200, "height": 400},
         {"crop": [200, 0, 200, 400], "width": 200, "height": 400},
@@ -20,7 +20,7 @@
       ]
     },
     "shooting": {
-      "timeout": 1,
+      "timeout": 0.5,
       "updateTime": 1,
       "looks": [
         {"crop": [600, 0, 200, 400], "width": 200, "height": 400}
