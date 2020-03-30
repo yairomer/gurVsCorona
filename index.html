@@ -125,23 +125,23 @@
       }
 
       this._bgImg = new Image();
-      this._bgImg.onload = waitForImages();
+      this._bgImg.onload = waitForImages;
       this._bgImg.src = this._config["bgImage"];
 
       this._heroImg = new Image();
-      this._heroImg.onload = waitForImages();
+      this._heroImg.onload = waitForImages;
       this._heroImg.src = this._config["heroImage"];
 
       this._projectileImg = new Image();
-      this._projectileImg.onload = waitForImages();
+      this._projectileImg.onload = waitForImages;
       this._projectileImg.src = this._config["projectileImage"]
 
       this._enemyImg = new Image();
-      this._enemyImg.onload = waitForImages();
+      this._enemyImg.onload = waitForImages;
       this._enemyImg.src = this._config["enemyImage"];
 
       this._cloudImg = new Image();
-      this._cloudImg.onload = waitForImages();
+      this._cloudImg.onload = waitForImages;
       this._cloudImg.src = this._config["cloudImage"];
 
       this._shootingAudio = new Audio(this._config["shootingAudio"]);
